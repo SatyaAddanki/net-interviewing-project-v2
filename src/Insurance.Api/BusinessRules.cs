@@ -23,7 +23,7 @@ namespace Insurance.Api
             string productTypeName = null;
             bool hasInsurance = false;
 
-            insurance = new HomeController.InsuranceDto();
+            //insurance = new HomeController.InsuranceDto();
 
             for (int i = 0; i < collection.Count; i++)
             {
