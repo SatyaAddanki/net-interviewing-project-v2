@@ -1,128 +1,13 @@
-using System;
-using System.Collections.Generic;
-using Insurance.Api.Controllers;
+﻿using Domain.V1;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
-using Xunit;
+using System;
 
-namespace Insurance.Tests
+namespace Insurance.Api.Test
 {
-    public class InsuranceTests : IClassFixture<ControllerTestFixture>
-    {
-        private readonly ControllerTestFixture _fixture;
-
-        public InsuranceTests(ControllerTestFixture fixture)
-        {
-            _fixture = fixture;
-        }
-
-        [Fact]
-        public void CalculateInsurance_GivenSalesPriceBetween500And2000Euros_ShouldAddThousandEurosToInsuranceCost()
-        {
-            const float expectedInsuranceValue = 1000;
-
-            var dto = new HomeController.InsuranceDto
-            {
-                ProductId = 1,
-            };
-            var sut = new HomeController();
-
-            var result = sut.CalculateInsurance(dto);
-
-            Assert.Equal(
-                expected: expectedInsuranceValue,
-                actual: result.InsuranceValue
-            );
-        }
-
-        [Fact]
-        public void CalculateInsurance_GivenSalesPriceLessThan500EurosForLaptop_ShouldAdd500EurosToInsuranceCost()
-        {
-            //Arrange
-            const int expectedInsuranceValue = 500;
-
-            var dto = new HomeController.InsuranceDto
-            {
-                ProductId = 2,
-            };
-            var sut = new HomeController();
-
-            var result = sut.CalculateInsurance(dto);
-
-            Assert.Equal(
-                expected: expectedInsuranceValue,
-                actual: result.InsuranceValue
-            );
-        }
-
-        [Fact]
-        public void CalculateInsurance_GivenOrder_ShouldProvideTotalInsuranceCost()
-        {
-            //Arrange
-            const int expectedInsuranceValue = 500+ 1000;
-            List<int> ex = new List<int>() { 1, 2 };
-
-            var dto = new HomeController.OrderDto
-            {
-                ProductId = new List<int>() { 1, 2 }
-            };
-            var sut = new HomeController();
-
-            var result = sut.CalculateInsurance(dto);
-
-            Assert.Equal(
-                expected: expectedInsuranceValue,
-                actual: result.InsuranceValue
-            );
-        }
-
-        [Fact]
-        public void CalculateInsurance_GivenOrderWithCamera_ShouldAdd500ToTotalInsuranceCost()
-        {
-            //Arrange
-            const int expectedInsuranceValue = 500 + 1000;
-           
-
-            var dto = new HomeController.OrderDto
-            {
-                ProductId = new List<int>() { 3 }
-            };
-            var sut = new HomeController();
-
-            var result = sut.CalculateInsurance(dto);
-
-            Assert.Equal(
-                expected: expectedInsuranceValue,
-                actual: result.InsuranceValue
-            );
-        }
-
-        [Fact]
-        public void CalculateInsurance_GivenOrderWithTwoCamera_ShouldAdd500ToTotalInsuranceCost()
-        {
-            //Arrange
-            const int expectedInsuranceValue = 500 + 1000;
-
-
-            var dto = new HomeController.OrderDto
-            {
-                ProductId = new List<int>() { 3 }
-            };
-            var sut = new HomeController();
-
-            var result = sut.CalculateInsurance(dto);
-
-            Assert.Equal(
-                expected: expectedInsuranceValue,
-                actual: result.InsuranceValue
-            );
-        }
-    }
-
     public class ControllerTestFixture : IDisposable
     {
         private readonly IHost _host;
@@ -144,6 +29,7 @@ namespace Insurance.Tests
 
     public class ControllerTestStartup
     {
+       
         public void Configure(IApplicationBuilder app)
         {
             app.UseRouting();
@@ -221,16 +107,6 @@ namespace Insurance.Tests
                 }
             );
         }
-
-    }
-    public class ProductDto
-    {
-        public int id { get; set; }
-        public string name { get; set; }
-
-        public double salesPrice { get; set; }
-
-        public int productTypeId { get; set; }
 
     }
 }
