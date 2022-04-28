@@ -1,13 +1,14 @@
-﻿using Domain.V1;
+﻿using Domain;
+using Domain.V1;
 
 namespace Application
 {
     public interface IBusinessRule
     {
-        InsuranceDto GetProductType(int productID);
+        Insurance GetProductType(int productID);
 
-        InsuranceDto GetSalesPrice(int productID);
+        Insurance GetSalesPrice(int productID);
 
-        InsuranceDto GetInsurance(InsuranceDto insuranceDto);
+        Insurance GetInsurance(Insurance insurance, bool secondCamera=false);
     }
 }

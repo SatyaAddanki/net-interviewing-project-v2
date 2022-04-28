@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System;
 
-namespace Insurance.Api.Test
+namespace WebAPI.Test
 {
     public class ControllerTestFixture : IDisposable
     {

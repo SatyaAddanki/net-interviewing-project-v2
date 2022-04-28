@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.32126.315
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{10B83B43-B851-4B70-B2C3-1CF4E507235E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Insurance.Api", "src\Insurance.Api\Insurance.Api.csproj", "{0633C3FD-55EE-438F-9897-37915CF88F76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "src\Insurance.Api\WebApi.csproj", "{0633C3FD-55EE-438F-9897-37915CF88F76}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Insurance.Api.Test", "tests\Insurance.Tests\Insurance.Api.Test.csproj", "{91B42B0F-9D5A-4E40-9803-CE3C455A1437}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Test", "tests\Insurance.Tests\WebApi.Test.csproj", "{91B42B0F-9D5A-4E40-9803-CE3C455A1437}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{688513B6-F847-4834-8770-21037905B973}"
 EndProject

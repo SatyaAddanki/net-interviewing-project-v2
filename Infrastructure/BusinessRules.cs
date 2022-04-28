@@ -1,4 +1,5 @@
 using Application;
+using Domain;
 using Domain.V1;
 using Newtonsoft.Json;
 using System;
@@ -9,66 +10,84 @@ namespace Infrastructure
     public class BusinessRules : IBusinessRule
     {
         private const string baseAddress = "http://localhost:5002";
-        InsuranceDto insurance = new InsuranceDto();
-        public InsuranceDto GetProductType(int productID)
+        private Insurance _insurance;
+        public BusinessRules()
         {
-            HttpClient client = new HttpClient{ BaseAddress = new Uri(baseAddress) };
+            _insurance = new Insurance();
+        }
+
+
+        public Insurance GetProductType(int productID)
+        {
+            HttpClient client = new HttpClient { BaseAddress = new Uri(baseAddress) };
             string json = client.GetAsync("/product_types").Result.Content.ReadAsStringAsync().Result;
             var collection = JsonConvert.DeserializeObject<dynamic>(json);
 
             json = client.GetAsync(string.Format("/products/{0:G}", productID)).Result.Content.ReadAsStringAsync().Result;
             var product = JsonConvert.DeserializeObject<dynamic>(json);
 
-           
-                 
             for (int i = 0; i < collection.Count; i++)
             {
                 if (collection[i].id == product.productTypeId && collection[i].canBeInsured == true)
                 {
-                    insurance.ProductTypeName = collection[i].name;
-                    insurance.ProductTypeHasInsurance = true;
+                    _insurance.ProductTypeName = collection[i].name;
+                    _insurance.ProductTypeHasInsurance = true;
                 }
             }
-            return insurance;
+            return _insurance;
         }
 
-        public InsuranceDto GetSalesPrice(int productID)
+        public Insurance GetSalesPrice(int productID)
         {
 
-            HttpClient client = new HttpClient{ BaseAddress = new Uri(baseAddress)};
+            HttpClient client = new HttpClient { BaseAddress = new Uri(baseAddress) };
             string json = client.GetAsync(string.Format("/products/{0:G}", productID)).Result.Content.ReadAsStringAsync().Result;
-            var product = JsonConvert.DeserializeObject<dynamic>(json);          
+            var product = JsonConvert.DeserializeObject<dynamic>(json);
 
-            insurance.SalesPrice = product.salesPrice;
-            return insurance;
+            _insurance.SalesPrice = product.salesPrice;
+            return _insurance;
         }
 
-        public InsuranceDto GetInsurance(InsuranceDto insuranceDto)
+        public Insurance GetInsurance(Insurance insurance, bool firstCamera = false)
         {
-            this.insurance = GetProductType(insuranceDto.ProductId);
-            this.insurance = GetSalesPrice(insuranceDto.ProductId);
-            if (insurance.SalesPrice < 500)
+            if (insurance.ProductTypeName == null && insurance.SalesPrice == 0)
             {
-                if (insurance.ProductTypeName == "Laptops" || insurance.ProductTypeName == "Smartphones" && insurance.ProductTypeHasInsurance)
+                _insurance = GetProductType(insurance.ProductId);
+                _insurance = GetSalesPrice(insurance.ProductId);
+            }
+
+            if (_insurance.SalesPrice < 500)
+            {
+                if (_insurance.ProductTypeName == "Laptops" || _insurance.ProductTypeName == "Smartphones" && _insurance.ProductTypeHasInsurance)
                 {
-                    insurance.InsuranceValue = 500;
+                    _insurance.InsuranceValue += 500;
+                }
+                if (_insurance.ProductTypeName == "Digital cameras" && firstCamera)
+                {
+                    _insurance.InsuranceValue += 500;                   
                 }
                 else
                 {
-                    insurance.InsuranceValue = 0;
+                    _insurance.InsuranceValue += 0;
                 }
             }
             else
             {
-                if (insurance.SalesPrice > 500 && insurance.SalesPrice < 2000 && insurance.ProductTypeHasInsurance)
-                    insurance.InsuranceValue += 1000;
-                if (insurance.SalesPrice >= 2000 && insurance.ProductTypeHasInsurance)
-                    insurance.InsuranceValue += 2000;
-                if (insurance.ProductTypeName == "Laptops" || insurance.ProductTypeName == "Smartphones" && insurance.ProductTypeHasInsurance)
-                    insurance.InsuranceValue += 500;
+                if (_insurance.SalesPrice > 500 && _insurance.SalesPrice < 2000)
+                    if (_insurance.ProductTypeHasInsurance)
+                        _insurance.InsuranceValue += 1000;
+                if (_insurance.SalesPrice >= 2000)
+                    if (_insurance.ProductTypeHasInsurance)
+                        _insurance.InsuranceValue += 2000;
+                if (_insurance.ProductTypeName == "Laptops" || _insurance.ProductTypeName == "Smartphones" && _insurance.ProductTypeHasInsurance)
+                    _insurance.InsuranceValue += 500;
+                if (_insurance.ProductTypeName == "Digital cameras" && firstCamera)
+                {
+                    _insurance.InsuranceValue += 500;
+                }
             }
 
-            return insurance;
+            return this._insurance;
         }
 
 
