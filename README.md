@@ -28,15 +28,15 @@ All projects are configured to use .NET Core 3.1
 * Infrastructure: Layer in charge of executing business logic.
 * Domain: Layer in charge of exposing entities.
 * Application: Layer in charge of maintaining abstractions for business logic
-* WingsOn.WebApi.Test: Unit tests for API.
+* WebApi.Test: Integration tests for API.
 
 # Work proposal
 ## Task 2 [REFACTORING]:
-Applied Solid priniciples
-Self documenting code
-Naming conventions
-remove unused namespace
-Project and File names
+* Applied Solid priniciples
+* Self documenting code
+* Naming conventions
+* Remove unused namespace
+* Project and File names
 
 ## Task 3 [FEATURE 1]:
 Create an endpoint that will accept order that contains list of products
