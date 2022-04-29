@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Domain.V1
+﻿namespace Domain.V1
 {
+    /// <summary>
+    /// Product DTO
+    /// </summary>
     public class ProductDto
     {
-        public int id { get; set; }
-        public string name { get; set; }
-
-        public double salesPrice { get; set; }
-
-        public int productTypeId { get; set; }
-
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public double SalesPrice { get; set; }
+        public int ProductTypeId { get; set; }
     }
 }

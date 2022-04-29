@@ -5,15 +5,15 @@ using Infrastructure;
 using WebApi.Controllers;
 using Xunit;
 
-namespace WebAPI.Test
+namespace WebApi.Test
 {
     public class InsuranceTests : IClassFixture<TestStartup>
     {
-       private readonly IBusinessRule _businessRule;
-      
+        private readonly IBusinessRule _businessRule;
+
         public InsuranceTests()
-        {            
-            _businessRule = new BusinessRules();
+        {
+            _businessRule = new BusinessRule();
         }
 
         [Fact]
@@ -146,7 +146,7 @@ namespace WebAPI.Test
         public void CalculateInsurance_GivenSalesPriceMoreThan500EurosForLaptop_ShouldAddExtra500EurosToInsuranceCost()
         {
             //Arrange
-            const int expectedInsuranceValue = 500+1000;
+            const int expectedInsuranceValue = 1500;
             var insuranceDto = new InsuranceDto
             {
                 ProductId = 4,
@@ -167,7 +167,7 @@ namespace WebAPI.Test
         public void CalculateInsurance_GivenSalesPriceMoreThan500EurosForCamera_ShouldAddExtra500EurosToInsuranceCost()
         {
             //Arrange
-            const int expectedInsuranceValue = 500 + 1000;
+            const int expectedInsuranceValue = 1500;
             var insuranceDto = new InsuranceDto
             {
                 ProductId = 3,
@@ -188,7 +188,7 @@ namespace WebAPI.Test
         public void CalculateInsurance_GivenOrderWithProducts_ShouldProvideTotalInsuranceCost()
         {
             //Arrange
-            const int expectedInsuranceValue = 0 + 1000;     
+            const int expectedInsuranceValue = 1000;
             var orderDto = new OrderDto
             {
                 ProductIds = new List<int>() { 1, 5 }
@@ -209,7 +209,7 @@ namespace WebAPI.Test
         public void CalculateInsurance_GivenOrderWithOneCamera_ShouldAdd500ToTotalInsuranceCost()
         {
             //Arrange
-            const int expectedInsuranceValue = 500 + 1000;
+            const int expectedInsuranceValue = 1500;
             var orderDto = new OrderDto
             {
                 ProductIds = new List<int>() { 3 }
@@ -230,7 +230,7 @@ namespace WebAPI.Test
         public void CalculateInsurance_GivenOrderWithTwoCamera_ShouldAdd500ToTotalInsuranceCost()
         {
             //Arrange
-            const int expectedInsuranceValue = 500 + 1000 + 0;
+            const int expectedInsuranceValue = 1500;
             var orderDto = new OrderDto
             {
                 ProductIds = new List<int>() { 3, 6 }
@@ -246,8 +246,26 @@ namespace WebAPI.Test
                 actual: result.InsuranceValue
             );
         }
+
+        [Fact]
+        public void CalculateInsurance_GivenOrderWithMultipleProducts_ShouldAddInsuranceCost()
+        {
+            //Arrange
+            const int expectedInsuranceValue = 4500;
+            var orderDto = new OrderDto
+            {
+                ProductIds = new List<int>() { 1, 2, 3, 4, 5, 6 }
+            };
+            var insuranceController = new InsuranceController(_businessRule);
+
+            //Act
+            var result = insuranceController.CalculateInsurance(orderDto);
+
+            //Assert
+            Assert.Equal(
+                expected: expectedInsuranceValue,
+                actual: result.InsuranceValue
+            );
+        }
     }
-
-
-
 }

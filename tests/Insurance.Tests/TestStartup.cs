@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System;
 
-namespace WebAPI.Test
+namespace WebApi.Test
 {
     public class TestStartup : IDisposable
     {
@@ -44,73 +44,73 @@ namespace WebAPI.Test
                                 case 1:
                                     product = new ProductDto
                                     {
-                                        id = 1,
-                                        name = "SomeProduct",
-                                        productTypeId = 1,
-                                        salesPrice = 750
+                                        Id = 1,
+                                        Name = "SomeProduct",
+                                        ProductTypeId = 1,
+                                        SalesPrice = 750
                                     };
                                     break;
                                 case 2:
                                     product = new ProductDto
                                     {
-                                        id = 2,
-                                        name = "SomeLaptop",
-                                        productTypeId = 21,
-                                        salesPrice = 450
+                                        Id = 2,
+                                        Name = "SomeLaptop",
+                                        ProductTypeId = 21,
+                                        SalesPrice = 450
                                     };
                                     break;
                                 case 3:
                                     product = new ProductDto
                                     {
-                                        id = 3,
-                                        name = "SomeCamera",
-                                        productTypeId = 33,
-                                        salesPrice = 600
+                                        Id = 3,
+                                        Name = "SomeCamera",
+                                        ProductTypeId = 33,
+                                        SalesPrice = 600
                                     };
                                     break;
                                 case 4:
                                     product = new ProductDto
                                     {
-                                        id = 4,
-                                        name = "SomeLaptop",
-                                        productTypeId = 21,
-                                        salesPrice = 600
+                                        Id = 4,
+                                        Name = "SomeLaptop",
+                                        ProductTypeId = 21,
+                                        SalesPrice = 600
                                     };
                                     break;
                                 case 5:
                                     product = new ProductDto
                                     {
-                                        id = 5,
-                                        name = "SomeProduct",
-                                        productTypeId = 1,
-                                        salesPrice = 450
+                                        Id = 5,
+                                        Name = "SomeProduct",
+                                        ProductTypeId = 1,
+                                        SalesPrice = 450
                                     };
                                     break;
                                 case 6:
                                     product = new ProductDto
                                     {
-                                        id = 6,
-                                        name = "SomeCamera",
-                                        productTypeId = 33,
-                                        salesPrice = 300
+                                        Id = 6,
+                                        Name = "SomeCamera",
+                                        ProductTypeId = 33,
+                                        SalesPrice = 300
                                     };
                                     break;
                                 case 7:
                                     product = new ProductDto
                                     {
-                                        id = 7,
-                                        name = "SomeProduct",
-                                        productTypeId = 1,
-                                        salesPrice = 500
+                                        Id = 7,
+                                        Name = "SomeProduct",
+                                        ProductTypeId = 1,
+                                        SalesPrice = 500
                                     };
                                     break;
                                 case 8:
                                     product = new ProductDto
                                     {
-                                        id = 8,
-                                        name = "SomeProduct",
-                                        productTypeId = 1,
-                                        salesPrice = 2000
+                                        Id = 8,
+                                        Name = "SomeProduct",
+                                        ProductTypeId = 1,
+                                        SalesPrice = 2000
                                     };
                                     break;
                             }
@@ -125,21 +125,21 @@ namespace WebAPI.Test
                                                {
                                                    new
                                                    {
-                                                       id = 1,
-                                                       name = "Test type",
-                                                       canBeInsured = true
+                                                       Id = 1,
+                                                       Name = "Test type",
+                                                       CanBeInsured = true
                                                    },
                                                    new
                                                    {
-                                                       id = 21,
-                                                       name = "Laptops",
-                                                       canBeInsured = true
+                                                       Id = 21,
+                                                       Name = "Laptops",
+                                                       CanBeInsured = true
                                                    },
                                                    new
                                                    {
-                                                       id = 33,
-                                                       name = "Digital cameras",
-                                                       canBeInsured = true
+                                                       Id = 33,
+                                                       Name = "Digital cameras",
+                                                       CanBeInsured = true
                                                    }
                                                };
                             return context.Response.WriteAsync(JsonConvert.SerializeObject(productTypes));
@@ -148,6 +148,5 @@ namespace WebAPI.Test
                 }
             );
         }
-
     }
 }
