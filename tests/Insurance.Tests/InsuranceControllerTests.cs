@@ -68,7 +68,7 @@ namespace WebAPI.Test
 
             var dto = new OrderDto
             {
-                ProductId = new List<int>() { 1, 2 }
+                ProductIds = new List<int>() { 1, 2 }
             };
             var sut = new InsuranceController(_businessRule);
 
@@ -89,7 +89,7 @@ namespace WebAPI.Test
 
             var dto = new OrderDto
             {
-                ProductId = new List<int>() { 3 }
+                ProductIds = new List<int>() { 3 }
             };
             var sut = new InsuranceController(_businessRule);
 
@@ -110,7 +110,7 @@ namespace WebAPI.Test
 
             var dto = new OrderDto
             {
-                ProductId = new List<int>() { 3, 3 }
+                ProductIds = new List<int>() { 3, 3 }
             };
             var sut = new InsuranceController(_businessRule);
 

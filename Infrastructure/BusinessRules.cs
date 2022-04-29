@@ -3,6 +3,7 @@ using Domain;
 using Domain.V1;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 
 namespace Infrastructure
@@ -91,7 +92,24 @@ namespace Infrastructure
         }
 
 
-
-
+        public Insurance GetInsurance(List<int> products)
+        {           
+            bool firstCamera = false;
+            foreach (var product in products)
+            {
+                _insurance = GetProductType(product);
+                _insurance = GetSalesPrice(product);
+                if (_insurance.ProductTypeName == "Digital cameras" && !firstCamera)
+                {
+                    _insurance = GetInsurance(_insurance, true);
+                    firstCamera = true;
+                }
+                else
+                {
+                    _insurance = GetInsurance(_insurance);
+                }
+            }
+            return _insurance;
+        }
     }
 }

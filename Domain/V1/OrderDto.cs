@@ -8,7 +8,7 @@ namespace Domain.V1
 {
     public class OrderDto
     {
-        public List<int> ProductId { get; set; }
+        public List<int> ProductIds { get; set; }
 
     }
 

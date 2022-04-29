@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Domain.V1;
+using System.Collections.Generic;
 
 namespace Application
 {
@@ -9,6 +10,8 @@ namespace Application
 
         Insurance GetSalesPrice(int productID);
 
-        Insurance GetInsurance(Insurance insurance, bool secondCamera=false);
+        Insurance GetInsurance(Insurance insurance, bool firstCamera=false);
+
+        Insurance GetInsurance(List<int> products);
     }
 }
