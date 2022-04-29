@@ -49,7 +49,7 @@ namespace Infrastructure
             return _insurance;
         }
 
-        public Insurance GetInsurance(Insurance insurance, bool firstCamera = false)
+        public Insurance GetInsurance(Insurance insurance, bool firstCamera = true)
         {
             if (insurance.ProductTypeName == null && insurance.SalesPrice == 0)
             {
@@ -63,7 +63,7 @@ namespace Infrastructure
                 {
                     _insurance.InsuranceValue += 500;
                 }
-                if (_insurance.ProductTypeName == "Digital cameras" && firstCamera)
+                else if (_insurance.ProductTypeName == "Digital cameras" && firstCamera)
                 {
                     _insurance.InsuranceValue += 500;                   
                 }
@@ -74,15 +74,20 @@ namespace Infrastructure
             }
             else
             {
-                if (_insurance.SalesPrice > 500 && _insurance.SalesPrice < 2000)
-                    if (_insurance.ProductTypeHasInsurance)
-                        _insurance.InsuranceValue += 1000;
-                if (_insurance.SalesPrice >= 2000)
-                    if (_insurance.ProductTypeHasInsurance)
-                        _insurance.InsuranceValue += 2000;
+                if (_insurance.SalesPrice >= 500 && _insurance.SalesPrice < 2000 && _insurance.ProductTypeHasInsurance)
+                {
+                    _insurance.InsuranceValue += 1000;
+                }                      
+                else if (_insurance.SalesPrice >= 2000 && _insurance.ProductTypeHasInsurance)
+                {
+                    _insurance.InsuranceValue += 2000;
+                }
+                
                 if (_insurance.ProductTypeName == "Laptops" || _insurance.ProductTypeName == "Smartphones" && _insurance.ProductTypeHasInsurance)
+                {
                     _insurance.InsuranceValue += 500;
-                if (_insurance.ProductTypeName == "Digital cameras" && firstCamera)
+                }                   
+                else if (_insurance.ProductTypeName == "Digital cameras" && firstCamera)
                 {
                     _insurance.InsuranceValue += 500;
                 }
@@ -94,19 +99,19 @@ namespace Infrastructure
 
         public Insurance GetInsurance(List<int> products)
         {           
-            bool firstCamera = false;
+            bool firstCamera = true;
             foreach (var product in products)
             {
                 _insurance = GetProductType(product);
                 _insurance = GetSalesPrice(product);
-                if (_insurance.ProductTypeName == "Digital cameras" && !firstCamera)
+                if (_insurance.ProductTypeName == "Digital cameras" && firstCamera)
                 {
                     _insurance = GetInsurance(_insurance, true);
-                    firstCamera = true;
+                    firstCamera = false;
                 }
                 else
                 {
-                    _insurance = GetInsurance(_insurance);
+                    _insurance = GetInsurance(_insurance, firstCamera);
                 }
             }
             return _insurance;

@@ -10,7 +10,7 @@ namespace Application
 
         Insurance GetSalesPrice(int productID);
 
-        Insurance GetInsurance(Insurance insurance, bool firstCamera=false);
+        Insurance GetInsurance(Insurance insurance, bool firstCamera=true);
 
         Insurance GetInsurance(List<int> products);
     }
