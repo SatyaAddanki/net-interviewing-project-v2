@@ -13,7 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Insurance.Api\Insurance.Api.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Insurance.Api\WebApi.csproj" />
   </ItemGroup>
 
 </Project>
